@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReelsVerse - Premium Reel Bundles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient-animation 8s ease infinite;
+            background-size: 400% 400%;
+        }
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .card-glow {
+            transition: all 0.3s ease-in-out;
+        }
+        .card-glow:hover {
+            box-shadow: 0 0 30px rgba(193, 53, 132, 0.6), 0 0 15px rgba(225, 48, 108, 0.4);
+            transform: translateY(-10px);
+        }
+        .modal {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .modal.hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-black/50 backdrop-blur-md z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-3xl font-bold hero-gradient">ReelsVerse</h1>
+            <nav>
+                <a href="#pricing" class="text-gray-300 hover:text-white transition">Pricing</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-24">
+        <!-- Hero Section -->
+        <section id="home" class="container mx-auto px-6 py-20 text-center">
+            <h2 class="text-5xl md:text-7xl font-extrabold mb-4">Unlock Your<br/><span class="hero-gradient">Viral Potential</span></h2>
+            <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
+                Step up your social media game with our premium, ready-to-use reel bundles. High-quality assets designed to make you stand out.
+            </p>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="py-20">
+            <div class="container mx-auto px-6">
+                <h3 class="text-4xl font-bold text-center mb-12">Choose Your Arsenal</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Starter Pack -->
+                    <div class="card-glow bg-gray-900/50 backdrop-blur-lg border border-purple-500/30 rounded-2xl p-8 flex flex-col">
+                        <h4 class="text-3xl font-bold mb-2">Starter Pack</h4>
+                        <p class="text-gray-400 mb-6">Perfect for getting started and boosting your content.</p>
+                        <p class="text-5xl font-extrabold mb-6">₹499</p>
+                        <ul class="text-gray-300 space-y-3 mb-8 flex-grow">
+                            <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Foundational Reel Templates</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Trending Audio Suggestions</li>
+                            <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Basic Video Effects</li>
+                        </ul>
+                        <p class="text-center font-semibold text-purple-400 mb-6">Includes 2 Drive Links</p>
+                        <button onclick="openPaymentModal('starter')" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Buy Now</button>
+                    </div>
+
+                    <!-- Mediator Pack -->
+                    <div class="card-glow bg-gray-900/50 backdrop-blur-lg border border-pink-500/50 rounded-2xl p-8 flex flex-col ring-2 ring-pink-500">
+                        <h4 class="text-3xl font-bold mb-2">Mediator Pack</h4>
+                        <p class="text-gray-400 mb-6">For creators ready to level up and engage more.</p>
+                        <p class="text-5xl font-extrabold mb-6">₹699</p>
+                        <ul class="text-gray-300 space-y-3 mb-8 flex-grow">
+                            <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Everything in Starter Pack</li>
+                             <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Advanced Transitions & VFX</li>
+                             <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Niche-Specific Content Ideas</li>
+                        </ul>
+                         <p class="text-center font-semibold text-pink-400 mb-6">Includes 5 Drive Links (Starter + 3 More)</p>
+                        <button onclick="openPaymentModal('mediator')" class="w-full bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Buy Now</button>
+                    </div>
+
+                    <!-- Advanced Pack -->
+                    <div class="card-glow bg-gray-900/50 backdrop-blur-lg border border-yellow-500/30 rounded-2xl p-8 flex flex-col">
+                        <h4 class="text-3xl font-bold mb-2">Advanced Pack</h4>
+                        <p class="text-gray-400 mb-6">The ultimate toolkit for social media domination.</p>
+                        <p class="text-5xl font-extrabold mb-6">₹999</p>
+                        <ul class="text-gray-300 space-y-3 mb-8 flex-grow">
+                             <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Everything in Mediator Pack</li>
+                             <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Pro-Level Color Grading LUTs</li>
+                             <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Viral Content Strategy Guide</li>
+                        </ul>
+                         <p class="text-center font-semibold text-yellow-400 mb-6">Includes 9 Drive Links (All Packs Combined)</p>
+                        <button onclick="openPaymentModal('advanced')" class="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gray-800/50 mt-20">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" onclick="openLegalModal('cancellation')" class="hover:text-white transition">Cancellations & Refunds</a>
+                <a href="#" onclick="openLegalModal('terms')" class="hover:text-white transition">Terms & Conditions</a>
+                <a href="#" onclick="openLegalModal('shipping')" class="hover:text-white transition">Shipping</a>
+                <a href="#" onclick="openLegalModal('privacy')" class="hover:text-white transition">Privacy</a>
+                <a href="mailto:riteshpatil032@gmail.com" class="hover:text-white transition">Contact Us</a>
+            </div>
+            <p>&copy; 2024 ReelsVerse. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+        <div class="bg-gray-900 rounded-2xl w-full max-w-md p-8 border border-purple-500/30 text-center">
+            <h3 id="paymentModalTitle" class="text-2xl font-bold mb-4">Confirm Your Purchase</h3>
+            <p class="text-gray-400 mb-8">You are about to purchase the <span id="paymentModalPackName" class="font-bold"></span>. Click below to proceed to the secure payment gateway.</p>
+            <a id="paymentModalLink" href="#" target="_blank" onclick="unlockLinks()" class="w-full block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Pay Now</a>
+            <button onclick="closePaymentModal()" class="mt-4 text-gray-400 hover:text-white">Cancel</button>
+        </div>
+    </div>
+    
+    <!-- Unlocked Links Modal -->
+    <div id="linksModal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+        <div class="bg-gray-900 rounded-2xl w-full max-w-2xl p-8 border border-green-500/30">
+            <h3 class="text-2xl font-bold mb-2 text-center text-green-400">Payment Successful!</h3>
+            <p class="text-gray-400 mb-6 text-center">Thank you for your purchase. Here are your exclusive download links:</p>
+            <div id="linksContent" class="space-y-3"></div>
+            <button onclick="closeLinksModal()" class="mt-8 w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg">Close</button>
+        </div>
+    </div>
+
+    <!-- Legal Modals -->
+    <div id="legalModal" class="modal hidden fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
+        <div class="bg-gray-900 rounded-2xl w-full max-w-3xl p-8 border border-gray-700/50 max-h-[80vh] overflow-y-auto">
+            <h3 id="legalModalTitle" class="text-2xl font-bold mb-6 text-center"></h3>
+            <div id="legalModalContent" class="prose prose-invert text-gray-300"></div>
+            <button onclick="closeLegalModal()" class="mt-8 w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg">Close</button>
+        </div>
+    </div>
+
+
+    <script>
+        // 3D Background Animation
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg-canvas'), alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const shapes = [];
+        const geometryTypes = [
+            () => new THREE.IcosahedronGeometry(1, 0),
+            () => new THREE.TorusKnotGeometry(0.8, 0.25, 100, 16),
+            () => new THREE.SphereGeometry(1, 16, 16)
+        ];
+
+        for (let i = 0; i < 50; i++) {
+            const geometry = geometryTypes[i % 3]();
+            const material = new THREE.MeshStandardMaterial({
+                color: Math.random() * 0xffffff,
+                metalness: 0.7,
+                roughness: 0.2,
+                transparent: true,
+                opacity: 0.5
+            });
+            const shape = new THREE.Mesh(geometry, material);
+            shape.position.set(
+                (Math.random() - 0.5) * 40,
+                (Math.random() - 0.5) * 40,
+                (Math.random() - 0.5) * 40
+            );
+            shape.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+            const scale = Math.random() * 0.3 + 0.1;
+            shape.scale.set(scale, scale, scale);
+            shapes.push(shape);
+            scene.add(shape);
+        }
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0xffffff, 1);
+        pointLight.position.set(10, 10, 10);
+        scene.add(pointLight);
+        
+        camera.position.z = 5;
+        
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            shapes.forEach((shape, i) => {
+                shape.rotation.x += 0.001 * (i % 3 + 1);
+                shape.rotation.y += 0.001 * (i % 2 + 1);
+            });
+            camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY * 2 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Modal Logic
+        const paymentModal = document.getElementById('paymentModal');
+        const paymentModalTitle = document.getElementById('paymentModalTitle');
+        const paymentModalPackName = document.getElementById('paymentModalPackName');
+        const paymentModalLink = document.getElementById('paymentModalLink');
+        
+        const linksModal = document.getElementById('linksModal');
+        const linksContent = document.getElementById('linksContent');
+
+        const legalModal = document.getElementById('legalModal');
+        const legalModalTitle = document.getElementById('legalModalTitle');
+        const legalModalContent = document.getElementById('legalModalContent');
+        
+        let currentPack = '';
+
+        const packs = {
+            starter: {
+                name: "Starter Pack",
+                paymentUrl: "https://rzp.io/l/yTGrJm1E", // Corrected Razorpay link
+                links: [
+                    "https://drive.google.com/drive/folders/1mmNWXU52geX9IDvSaky979kerUXYP26T",
+                    "https://drive.google.com/drive/folders/1LljZEOq7pN3dPCHeTWSWZY0VsoNL-xO5"
+                ]
+            },
+            mediator: {
+                name: "Mediator Pack",
+                paymentUrl: "https://rzp.io/l/Q3ejTHx4", // Corrected Razorpay link
+                links: [
+                    "https://drive.google.com/drive/folders/1mmNWXU52geX9IDvSaky979kerUXYP26T",
+                    "https://drive.google.com/drive/folders/1LljZEOq7pN3dPCHeTWSWZY0VsoNL-xO5",
+                    "https://drive.google.com/drive/folders/1wT71Sg_MvY_L2NRdeNd6dM8-8J9aRqJU",
+                    "https://drive.google.com/drive/folders/1qEF65utjenJYTHzmzY767-KujR1snmOb",
+                    "https://drive.google.com/drive/folders/1sWI2iGYFpO5fyIY-a5PxMk-7kVEBa4j7"
+                ]
+            },
+            advanced: {
+                name: "Advanced Pack",
+                paymentUrl: "https://rzp.io/l/Pa1pnQC", // Corrected Razorpay link
+                links: [
+                    "https://drive.google.com/drive/folders/1mmNWXU52geX9IDvSaky979kerUXYP26T",
+                    "https://drive.google.com/drive/folders/1LljZEOq7pN3dPCHeTWSWZY0VsoNL-xO5",
+                    "https://drive.google.com/drive/folders/1wT71Sg_MvY_L2NRdeNd6dM8-8J9aRqJU",
+                    "https://drive.google.com/drive/folders/1qEF65utjenJYTHzmzY767-KujR1snmOb",
+                    "https://drive.google.com/drive/folders/1sWI2iGYFpO5fyIY-a5PxMk-7kVEBa4j7",
+                    "https://drive.google.com/drive/folders/1ev4YgEAw55izgE5mO6NTe0fswrrQTTva",
+                    "https://drive.google.com/drive/folders/1NR5s--uOgAYpvursdFTe964cEu9rGMmB",
+                    "https://drive.google.com/drive/folders/1sezdPNNNGbjlTSaMYPg5-tsFYJnE2XKv",
+                    "https://drive.google.com/drive/folders/1iRBiV54oYHEE-57Nzy2B5LMy9rGyt6P4"
+                ]
+            }
+        };
+
+        const legalContent = {
+            cancellation: {
+                title: "Cancellations & Refunds",
+                content: `<p>Due to the digital nature of our products, all sales are final. Once a purchase is made and the digital content is delivered, we are unable to offer any refunds or cancellations.</p><p>Please review the contents of each pack carefully before purchasing to ensure it meets your needs. If you have any questions about a pack, feel free to contact us before making a purchase.</p><p><strong>There are absolutely no refunds available.</strong></p>`
+            },
+            terms: {
+                title: "Terms & Conditions",
+                content: `<p>By purchasing and using our products, you agree to these terms. The reel bundles are for personal and commercial use on your own social media channels. You are not permitted to resell, redistribute, or share the files, links, or templates with others. ReelsVerse retains all rights to the assets provided. We are not responsible for any outcomes related to your social media performance.</p>`
+            },
+            shipping: {
+                title: "Shipping Policy",
+                content: `<p>All products sold on ReelsVerse are digital goods. There is no physical shipping. Upon successful payment, you will receive immediate access to the Google Drive links containing your purchased files. You can access these links from the confirmation screen and they will also be sent to the email address you provide during checkout.</p>`
+            },
+            privacy: {
+                title: "Privacy Policy",
+                content: `<p>We respect your privacy. We only collect necessary information for payment processing through our secure payment gateway (Razorpay). We do not store your payment details on our servers. Your email address may be used to send you your purchase links and occasional updates about our products. We will not sell or share your personal information with third parties.</p>`
+            }
+        }
+
+        function openPaymentModal(packKey) {
+            currentPack = packKey;
+            const pack = packs[packKey];
+            paymentModalPackName.textContent = pack.name;
+            paymentModalLink.href = pack.paymentUrl;
+            paymentModal.classList.remove('hidden');
+        }
+
+        function closePaymentModal() {
+            paymentModal.classList.add('hidden');
+        }
+        
+        // This function simulates the payment success and opens the links modal
+        function unlockLinks() {
+            setTimeout(() => {
+                closePaymentModal();
+                showLinks();
+            }, 500); // Small delay to simulate processing
+        }
+        
+        function showLinks() {
+            const pack = packs[currentPack];
+            linksContent.innerHTML = pack.links.map((link, index) => `
+                <a href="${link}" target="_blank" class="block w-full bg-gray-800 hover:bg-gray-700 p-4 rounded-lg text-center text-white transition-colors duration-200">
+                    Download Link ${index + 1}
+                </a>
+            `).join('');
+            linksModal.classList.remove('hidden');
+        }
+        
+        function closeLinksModal() {
+            linksModal.classList.add('hidden');
+        }
+
+        function openLegalModal(legalKey) {
+            const content = legalContent[legalKey];
+            legalModalTitle.textContent = content.title;
+            legalModalContent.innerHTML = content.content;
+            legalModal.classList.remove('hidden');
+        }
+
+        function closeLegalModal() {
+            legalModal.classList.add('hidden');
+        }
+
+        // Close modals on escape key press
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closePaymentModal();
+                closeLinksModal();
+                closeLegalModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
